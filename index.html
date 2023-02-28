@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="./assets/icons8-wall-clock-32.png" type="image/x-icon">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <title>Temporizador</title>
+    <style>
+    </style>
+</head>
+<body>
+    <main>
+        <section class="main-container">
+            <div class="reloj-container">
+                <div class="reloj-container__reloj">
+                    <div>
+                        <span class="btnSumar sumarHora"></span>
+                        <p class="horasUser">00</p>
+                        <span class="btnRestar restarHora"></span>
+                    </div>
+                    <div>
+                        <span class="btnSumar sumarMinuto"></span>
+                        <p class="minutosUser">00</p>
+                        <span class="btnRestar restarMinuto"></span>
+                    </div>
+                    <div>
+                        <span class="btnSumar sumarSegundo"></span>
+                        <p class="segundosUser">00</p>
+                        <span class="btnRestar restarSegundo"></span>
+                    </div>
+                </div>
+
+                <div class="reloj-container__control">
+                    <button class="iniciarTemp">Iniciar</button>
+                    <button style="display: none;" class="pausarTemp">Pausar</button>
+                    <button class="detenerTemp">Detener</button>
+                </div>
+                
+            </div>
+            <p></p>
+        </section>
+    </main>
+
+    <script src="./js/main.js"></script>
+</body>
+</html>
