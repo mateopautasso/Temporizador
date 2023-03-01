@@ -29,7 +29,7 @@ setInterval(()=>{
     if(segundosUser.innerHTML > '00') {
         segundosUser.style.filter = 'brightness(2)'
     } else segundosUser.style.filter = 'brightness(0.6)'
-},1)
+},10)
 
 const getTiempoFaltante = (fechaLimite) => {
     let tiempoActual = new Date();

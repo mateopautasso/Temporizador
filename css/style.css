@@ -60,6 +60,7 @@ p {
     font-size: 100px!important;
     color: var(--green)!important;
     filter: brightness(0.8);
+    -webkit-filter: brightness();
 }
 
 .reloj-container__reloj div span {
