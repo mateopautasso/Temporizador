@@ -29,7 +29,7 @@ setInterval(()=>{
     if(segundosUser.innerHTML > '00') {
         segundosUser.style.filter = 'brightness(2)'
     } else segundosUser.style.filter = 'brightness(0.6)'
-},50)
+},20)
 
 const getTiempoFaltante = (fechaLimite) => {
     let tiempoActual = new Date();
@@ -54,42 +54,56 @@ btnSumar.forEach((btn)=>{
 
         switch(e.target.className) {
             case 'btnSumar sumarHora':
-                horasRestantesIniciales.unshift(parseInt(horasUser.innerHTML)+1)
+                
+
+                if(horasRestantesIniciales[0] === 24) {
+                    horasRestantesIniciales[0] = 0;
+                    minutosRestantesIniciales[0] = 0;
+                    minutosUser.innerHTML = '00'
+                    segundosRestantesIniciales[0] = 0;
+                    segundosUser.innerHTML = '00'
+                } else{
+                    horasRestantesIniciales.unshift(parseInt(horasUser.innerHTML)+1);
+                }
 
                 let hora = parseInt(horasUser.innerHTML)
                 let sumarHora = hora + 1;
                 if(sumarHora <= 9) {
                     horasUser.innerHTML = '0' + String(sumarHora)
-                } else if(sumarHora > 9 &&sumarHora <= 23){
+                } else if(sumarHora > 9 &&sumarHora <= 24){
                     horasUser.innerHTML = String(sumarHora)
-                } else if(hora === 23){
+                } else if(hora === 24){
                     horasUser.innerHTML = '00'
                 }
                 break;
             case 'btnSumar sumarMinuto':
-                minutosRestantesIniciales.unshift(parseInt(minutosUser.innerHTML)+1)
-
-                let minuto = parseInt(minutosUser.innerHTML)
-                let sumarMinuto = minuto + 1;
-                if(sumarMinuto <= 9) {
-                    minutosUser.innerHTML = '0' + String(sumarMinuto)
-                } else if(sumarMinuto > 9 && sumarMinuto <= 59){
-                    minutosUser.innerHTML = String(sumarMinuto)
-                } else if(minuto === 59){
-                    minutosUser.innerHTML = '00'
+                if(horasRestantesIniciales[0] < 24) {
+                    minutosRestantesIniciales.unshift(parseInt(minutosUser.innerHTML)+1)
+    
+                    let minuto = parseInt(minutosUser.innerHTML)
+                    let sumarMinuto = minuto + 1;
+                    if(sumarMinuto <= 9) {
+                        minutosUser.innerHTML = '0' + String(sumarMinuto)
+                    } else if(sumarMinuto > 9 && sumarMinuto <= 59){
+                        minutosUser.innerHTML = String(sumarMinuto)
+                    } else if(minuto === 59){
+                        minutosUser.innerHTML = '00'
+                    }
                 }
                 break;
             case 'btnSumar sumarSegundo':
-                segundosRestantesIniciales.unshift(parseInt(segundosUser.innerHTML)+1)
-
-                let segundo = parseInt(segundosUser.innerHTML)
-                let sumarSegundo = segundo + 1;
-                if (sumarSegundo <= 9) {
-                    segundosUser.innerHTML = '0' + String(sumarSegundo)
-                } else if(sumarSegundo > 9 && sumarSegundo <= 59){
-                    segundosUser.innerHTML = String(sumarSegundo)
-                } else if(segundo === 59){
-                    segundosUser.innerHTML = '00'
+                if(horasRestantesIniciales[0] < 24) {
+                    segundosRestantesIniciales.unshift(parseInt(segundosUser.innerHTML)+1)
+    
+                    let segundo = parseInt(segundosUser.innerHTML)
+                    let sumarSegundo = segundo + 1;
+                    if (sumarSegundo <= 9) {
+                        segundosUser.innerHTML = '0' + String(sumarSegundo)
+                    } else if(sumarSegundo > 9 && sumarSegundo <= 59){
+                        segundosUser.innerHTML = String(sumarSegundo)
+                    } else if(segundo === 59){
+                        segundosUser.innerHTML = '00'
+                    }
                 }
                 break;
             }
@@ -101,39 +115,62 @@ btnRestar.forEach((btn)=>{
 
         switch(e.target.className) {
             case 'btnRestar restarHora':
-                horasRestantesIniciales.unshift(parseInt(horasUser.innerHTML)-1)
+                if(horasRestantesIniciales[0] === 0) {
+                    minutosRestantesIniciales[0] = 0;
+                    minutosUser.innerHTML = '00'
+                    segundosRestantesIniciales[0] = 0;
+                    segundosUser.innerHTML = '00'
+                }
+                if(horasRestantesIniciales[0] !== 0) {
+                    horasRestantesIniciales.unshift(parseInt(horasUser.innerHTML)-1);
+                } else {
+                    horasRestantesIniciales.unshift(parseInt(horasUser.innerHTML)+24);
+                }
                 let hora = parseInt(horasUser.innerHTML)
                 let restarHora = hora - 1;
                 if(hora === 0){
-                    horasUser.innerHTML = '23'
+                    horasUser.innerHTML = '24'
                 } else if(restarHora <= 9) {
                     horasUser.innerHTML = '0' + String(restarHora)
-                } else if(restarHora > 9 && restarHora <= 23){
+                } else if(restarHora > 9 && restarHora <= 24){
                     horasUser.innerHTML = String(restarHora)
                 }
                 break;
             case 'btnRestar restarMinuto':
-                minutosRestantesIniciales.unshift(parseInt(minutosUser.innerHTML)-1)
-                let minuto = parseInt(minutosUser.innerHTML)
-                let restarMinuto = minuto - 1;
-                if(minuto === 0){
-                    minutosUser.innerHTML = '59'
-                } else if(restarMinuto <= 9) {
-                    minutosUser.innerHTML = '0' + String(restarMinuto)
-                } else if(restarMinuto > 9 && restarMinuto <= 59){
-                    minutosUser.innerHTML = String(restarMinuto)
+                if(horasRestantesIniciales[0] < 24) {
+                    if(minutosRestantesIniciales[0] !== 0) {
+                        minutosRestantesIniciales.unshift(parseInt(minutosUser.innerHTML)-1);
+                    } else {
+                        minutosRestantesIniciales.unshift(parseInt(minutosUser.innerHTML)+59);
+                    }
+                    let minuto = parseInt(minutosUser.innerHTML)
+                    let restarMinuto = minuto - 1;
+                    if(minuto === 0){
+                        minutosUser.innerHTML = '59'
+                    } else if(restarMinuto <= 9) {
+                        minutosUser.innerHTML = '0' + String(restarMinuto)
+                    } else if(restarMinuto > 9 && restarMinuto <= 59){
+                        minutosUser.innerHTML = String(restarMinuto)
+                    }
                 }
                 break;
             case 'btnRestar restarSegundo':
-                segundosRestantesIniciales.unshift(parseInt(segundosUser.innerHTML)-1)
-                let segundo = parseInt(segundosUser.innerHTML)
-                let restarSegundo = segundo - 1;
-                if(segundo === 0){
-                    segundosUser.innerHTML = '59'
-                } else if (restarSegundo <= 9) {
-                    segundosUser.innerHTML = '0' + String(restarSegundo)
-                } else if(restarSegundo > 9 && restarSegundo <= 59){
-                    segundosUser.innerHTML = String(restarSegundo)
+                if(horasRestantesIniciales[0] < 24) {
+                    if(segundosRestantesIniciales[0] !== 0) {
+                        segundosRestantesIniciales.unshift(parseInt(segundosUser.innerHTML)-1);
+                    } else {
+                        segundosRestantesIniciales.unshift(parseInt(segundosUser.innerHTML)+59);
+    
+                    }
+                    let segundo = parseInt(segundosUser.innerHTML)
+                    let restarSegundo = segundo - 1;
+                    if(segundo === 0){
+                        segundosUser.innerHTML = '59'
+                    } else if (restarSegundo <= 9) {
+                        segundosUser.innerHTML = '0' + String(restarSegundo)
+                    } else if(restarSegundo > 9 && restarSegundo <= 59){
+                        segundosUser.innerHTML = String(restarSegundo)
+                    }
                 }
                 break;
             }
@@ -185,7 +222,7 @@ btnIniciar.addEventListener('click', ()=>{
             minutosRestantes = minutosRestantes - 60;
             horasRestantes = horasRestantes + 1;
         }
-        if(horasRestantes > 23) {
+        if(horasRestantes > 24) {
             horasRestantes = horasRestantes - 24;
             diaActual = diaActual + 1;
             fechaActual = fechaActual + 1;
@@ -195,7 +232,6 @@ btnIniciar.addEventListener('click', ()=>{
 
             let reloj = getTiempoFaltante(`${arrayDays[diaActual]} ${arrayMonths[mesActual]} ${String(fechaActual)} ${String(anioActual)} ${String(horasRestantes)}:${String(minutosRestantes)}:${String(segundosRestantes)} GMT-0300`)
             
-            console.log(reloj)
             horasUser.innerHTML = `${reloj.horasRestantes}`
             minutosUser.innerHTML = `${reloj.minutosRestantes}`
             segundosUser.innerHTML = `${reloj.segundosRestantes}`
